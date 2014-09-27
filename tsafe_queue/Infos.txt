@@ -1,0 +1,37 @@
+http://www.advancedlinuxprogramming.com/
+
+POSIX VS C-lib :
+POSIX is a superset of the standard C library, and it's important to note that it defers to it. If C and POSIX is ever in conflict, C wins.
+
+ASCII vs UTF8
+If the string is ASCII encoded, all we need to do is to fetch third byte from the string.
+If, however string is UTF-8 encoded, we must first check if first character is a one or two byte char, then we need to perform same check on second character, and only then we can access the third character. The difference in performance will be the bigger, the longer the string.
+Code points with lower numerical values (i.e. earlier code positions in the Unicode character set, which tend to occur more frequently) are encoded using fewer bytes. The first 128 characters of Unicode, which correspond one-to-one with ASCII.
+
+C INFOS
+extern, define, declare :
+http://www.geeksforgeeks.org/understanding-extern-keyword-in-c/
+
+The declaration can be done any number of times and definition can be done only onc
+Definition of a C function means writing the body of the function
+#include "somefile.h"
+extern int var;     //declare variable var
+int main(void)
+{
+ var = 10;
+ return 0;
+}
+Analysis: Supposing that somefile.h has the definition of var. This program will be compiled successfully.
+
+
+
+static :  
+http://stackoverflow.com/questions/572547/what-does-static-mean-in-a-c-program
+A static variable inside a function keeps its value between invocations.
+A static global variable or a function is "seen" only in the file it's declared in
+
+const : 
+char * const a ; // pointer is constant not the data
+const char *  a ; // data is constant not the pointer
+
+volatile : avoid compiler optimization : force memory writeback

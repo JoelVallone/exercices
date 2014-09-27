@@ -1,0 +1,7 @@
+The standard way to compile this program is with the command
+  gcc hello.c -o hello 
+
+Alternatively, the above program could be compiled using the following two commands.
+  g++ -c hello.c
+  g++ hello.o -o hello 
+The end result is the same, but this two-step method first compiles hello.C into a machine code file named "hello.o" and then links hello.o with some system libraries to produce the final program "hello". 
