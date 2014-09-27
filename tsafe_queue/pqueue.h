@@ -13,11 +13,15 @@ typedef struct {
     int count;
     element* array;
     int size;
+    
+    pthread_mutex_t* cs;
+    pthread_cond_t* is_not_full;
+    pthread_cond_t* is_not_empty;
 } p_queue;
 
 int main(int argc, char *argv[]);
-void* producer(p_queue* q);
-void* consumer(p_queue* q);
+void* f_producer(void* q);
+void* f_consumer(void* q);
 
 p_queue* create(int arraySize);
 void destroy(p_queue* q);
