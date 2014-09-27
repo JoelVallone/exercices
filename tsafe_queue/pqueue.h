@@ -1,8 +1,9 @@
 #ifndef PQUEUE
 #define PQUEUE
 
-#define CNT_PRODUCER 1
-#define CNT_CONSUMER 1
+#define CNT_PRODUCER 2
+#define CNT_CONSUMER 2
+#define SIZE_QUEUE 2
 
 
 typedef int element;
