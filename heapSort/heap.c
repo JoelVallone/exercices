@@ -8,14 +8,14 @@
 int main(void){
   
   int arraySize = 9;
-  int arr[] = {2, 29, 83, 14,5,65,7, 33,-1}; // last entry is a buffer with min value
+  _TYPE arr[] = {2, 29, 83, 14,5,65,7, 33,-1}; // last entry is a buffer with min value
   displayArray(arr,arraySize);
   buildHeap(arr,arraySize);
   sortHeap(arr,arraySize);
   displayArray(arr,arraySize);
 }
 
-void sortHeap(int* arr, int arrSize){
+void sortHeap(_TYPE* arr, int arrSize){
   //printf("---> SORT HEAP <---\n");
   int i = 0;
   for(i = 1; i < arrSize;i++){
@@ -25,7 +25,7 @@ void sortHeap(int* arr, int arrSize){
   //displayTree(arr,arrSize);
 }
 
-void buildHeap(int* arr, int arrSize){
+void buildHeap(_TYPE* arr, int arrSize){
   //printf("---> BUILD HEAP <---\n");
   //displayTree(arr,arrSize);
   int i = -1;
@@ -35,15 +35,15 @@ void buildHeap(int* arr, int arrSize){
   //displayTree(arr,arrSize);
 }
 
-void displayArray(int* arr, int arrSize){
+void displayArray(_TYPE* arr, int arrSize){
   int i = 0;
   for(i = 0; i < arrSize; i++){
-    printf("%d,",arr[i]);
+    printf("%.2f,",arr[i]);
   }
   printf("\n");
 }
 
-void displayTree(int* arr, int arrSize){
+void displayTree(_TYPE* arr, int arrSize){
   int treeHeight = treeHight(arrSize);
   int cellId = 0;
   int maxNodeCnt = 0;
@@ -53,7 +53,7 @@ void displayTree(int* arr, int arrSize){
     maxNodeCnt = (1 << rowId);
     printf("\n");
     for(colId = 0; colId < maxNodeCnt && cellId < arrSize; colId++){
-      printf("%d, ",arr[cellId]);
+      printf("%.2f, ",arr[cellId]);
       cellId++;
     }
   }
@@ -65,9 +65,9 @@ int treeHight(int nodeCount){
   return (int) (log(nodeCount)/log(2));
 }
 
-void siftDown(int*arr, int i, int arrSize){
+void siftDown(_TYPE*arr, int i, int arrSize){
   char swapped = 1;
-  int buffer = -1;
+  _TYPE buffer = -1;
   int parentId = i;
   int lChildId = -1;
   int rChildId = -1;
@@ -104,11 +104,11 @@ void siftDown(int*arr, int i, int arrSize){
 
 }
 
-void siftUp(int*arr, int i, int arrSize){
+void siftUp(_TYPE*arr, int i, int arrSize){
   if(i >= arrSize)return;
 
   char swapped = 1;
-  int buffer = -1;
+  _TYPE buffer = -1;
   int current = i;
   int parent = 0;
 
@@ -126,9 +126,9 @@ void siftUp(int*arr, int i, int arrSize){
   }
 }
 
-void swap(int* arr,int aId,int bId){
+void swap(_TYPE* arr,int aId,int bId){
   //printf("\t=> swap [%d] and [%d]\n",aId,bId);
-      int buffer = arr[aId];
+      _TYPE buffer = arr[aId];
       arr[aId] = arr[bId];
       arr[bId] = buffer;
 }
