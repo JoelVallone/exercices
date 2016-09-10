@@ -2,7 +2,29 @@
 #include <math.h>
 #include "tree.h"
 
-TreeNode*  treeBuildLayer(TreeNode* existingMe, int targetDepth, int myDepth, int* arr , int arrSize, int myLevelId);
+
+TreeNode* __treeBuildLayer(TreeNode* existingMe, int targetDepth, int myDepth, int* arr , int arrSize, int myLevelId);
+
+
+TreeNode* getNode(TreeNode* root, int nodeVal){
+
+  TreeNode* candidate = root;
+  if(caondidate == NULL)return NULL;
+  if(*(root->val) == nodeVal) return root;
+  
+  TreeNode* candidate = getNode(root->left, nodeVal);
+  if(candidate != NULL) return candidate;
+  
+  candidate = getNode(root->right, nodeVal);
+  if(candidate != NULL) return candidate;
+
+  return NULL;
+}
+
+int nodeDepth(TreeNode* root, TreeNode* node){
+  return(treeHeight(root)-treeHeight(node));
+}
+
 //initialize tree with level order traversal input array
 TreeNode*  treeBuild(int* arr,int idx, int arrSize){
   int treeHeight = floor(log2(arrSize));
@@ -10,15 +32,15 @@ TreeNode*  treeBuild(int* arr,int idx, int arrSize){
   TreeNode* root = NULL;
   for(targetDepth=0; targetDepth <= treeHeight; targetDepth++){
       if(targetDepth == 0){
-	root = treeBuildLayer(root, targetDepth, 0, arr, arrSize, 0);
+	root = __treeBuildLayer(root, targetDepth, 0, arr, arrSize, 0);
       }else{
-	treeBuildLayer(root, targetDepth, 0, arr, arrSize, 0);
+	__treeBuildLayer(root, targetDepth, 0, arr, arrSize, 0);
       }
   }
   return root;
 }
 
-TreeNode*  treeBuildLayer(TreeNode* existingMe, int targetDepth, int myDepth, int* arr , int arrSize, int myLevelId){  
+TreeNode*  __treeBuildLayer(TreeNode* existingMe, int targetDepth, int myDepth, int* arr , int arrSize, int myLevelId){  
   if(targetDepth == myDepth){
     int levelOffset = (1 << myDepth) -1;
     int idx =  levelOffset + myLevelId;
@@ -36,8 +58,8 @@ TreeNode*  treeBuildLayer(TreeNode* existingMe, int targetDepth, int myDepth, in
     }
     return newMe;
   }else if (targetDepth > myDepth){
-    existingMe->left =treeBuildLayer(existingMe->left, targetDepth, myDepth+1, arr,  arrSize, (myLevelId << 1));
-    existingMe->right =treeBuildLayer(existingMe->right, targetDepth, myDepth+1, arr, arrSize, (myLevelId << 1)+1);
+    existingMe->left = __treeBuildLayer(existingMe->left, targetDepth, myDepth+1, arr,  arrSize, (myLevelId << 1));
+    existingMe->right = __treeBuildLayer(existingMe->right, targetDepth, myDepth+1, arr, arrSize, (myLevelId << 1)+1);
     return existingMe;
   }else{
     printf("Should not happen");
@@ -62,7 +84,7 @@ TreeNode*  treeBuildHeapStyleinput(int* arr, int idx, int arrSize){
 void treeDisplay(TreeNode* root, int myDepth, int myId, int* displayDepth, int treeDepth){
   if(root == NULL  || *displayDepth < myDepth) return;
 
-  //display my valu if I am the target depth otherwise ask children
+  //display my value if I am the target depth otherwise ask children
   if(myDepth == *displayDepth){
     printf("(%d,%d)=", myId >> 1, myId);
     if(root->val != NULL){
@@ -84,6 +106,7 @@ void treeDisplay(TreeNode* root, int myDepth, int myId, int* displayDepth, int t
       treeDisplay(root->left, 1, 0, displayDepth, treeDepth);
       treeDisplay(root->right, 1, 1, displayDepth, treeDepth);
     }
+    printf("\n");
   } 
 }
 
