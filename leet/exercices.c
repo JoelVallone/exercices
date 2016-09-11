@@ -8,9 +8,56 @@
    https://leetcode.com/problemset/algorithms/
  */
 void main(){
-  testlowestCommonAncestor();
-  // int input  = 4;
-  //  printf("climbStairs(%d)=%d\n",input,climbStairs(input));
+  int arr[6]  = {7, 1, 5, 3, 6, 4};
+  //int arr[6]  = {7, 6, 4, 3, 1, 0};
+  printf("%d\n", maxProfit(arr, 6));
+}
+
+
+//121 - either max delta or maxminimum wins O (N)
+int maxProfit(int* prices, int pricesSize) {
+  if (prices == NULL || pricesSize <= 1) return 0;
+
+  int delta = 0;
+  int maxDelta  = 0;
+  int bestMin = prices[0];
+  int i = 0;
+  for(i = 0; i < pricesSize; i++){
+    bestMin = bestMin > prices[i] ? prices[i] : bestMin;
+    delta = prices[i] - bestMin;
+    maxDelta = maxDelta < delta ? delta : maxDelta;
+  }
+  return maxDelta;
+}
+
+//121 - exhaustive search = O(N^2);
+int maxProfitSlow(int* prices, int pricesSize) {
+  if (prices == NULL || pricesSize <= 1) return 0;
+  //for each value select max next value -> maintaint the max positive delta pair
+  int i = 0;
+  int j = 0 ;
+  int maxDelta = -1;
+  int localDelta = -1;
+  int maxSell = 0;
+  int curentBuy = 0;
+  for(i = 0; i < pricesSize; i++){
+    localDelta = -2;
+    curentBuy = prices[i];
+    maxSell = curentBuy;
+    for(j = i+1; j < pricesSize; j++){
+      maxSell = maxSell < prices[j] ? prices[j] : maxSell;
+      
+    }
+    localDelta = maxSell - prices[i];
+    maxDelta = localDelta > maxDelta ? localDelta : maxDelta;
+  }
+
+  if(maxDelta < 0) return 0;
+  return maxDelta;
+
+
+  //One pass :
+  //build delta array & find max pos delta (buy) & find max neg delta (sell)
 }
 
 void  testlowestCommonAncestor(){
