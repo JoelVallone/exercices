@@ -9,10 +9,10 @@ TreeNode* __treeBuildLayer(TreeNode* existingMe, int targetDepth, int myDepth, i
 TreeNode* getNode(TreeNode* root, int nodeVal){
 
   TreeNode* candidate = root;
-  if(caondidate == NULL)return NULL;
-  if(*(root->val) == nodeVal) return root;
+  if(candidate == NULL)return NULL;
+  if(*(candidate->val) == nodeVal) return root;
   
-  TreeNode* candidate = getNode(root->left, nodeVal);
+  candidate = getNode(root->left, nodeVal);
   if(candidate != NULL) return candidate;
   
   candidate = getNode(root->right, nodeVal);
@@ -47,13 +47,14 @@ TreeNode*  __treeBuildLayer(TreeNode* existingMe, int targetDepth, int myDepth, 
     if (idx >= arrSize){
       return NULL;
     }
-    TreeNode* newMe = malloc(sizeof(TreeNode));
+
+    TreeNode* newMe = NULL;
     if(arr[idx] != -1){
+      newMe = malloc(sizeof(TreeNode));
       newMe->val = malloc(sizeof(int));
       *(newMe->val) = arr[idx];
       printf("%d, ", arr[idx]);
     }else{
-      newMe->val = NULL;
       printf("NULL, ");
     }
     return newMe;

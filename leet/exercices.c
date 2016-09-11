@@ -19,23 +19,27 @@ void  testlowestCommonAncestor(){
   int initDisplayDepth = 0;
   int treeDepth = treeHeight(root);
   printf("Tree Height = %d\n", treeDepth);
-  printf("%d", *(getNode(root,5)->val)),
-  /*
-  int testCnt = 3;
-  int lcaTest[][] = {{2,8},{0,5},{2,5}};
-  for(int i = 0; i < testCnt; i++){
-    TreeNode* p = getNode(lcaTest[i][0]);
-    TreeNode* q = getNode(lcaTest[i][1]);
-    printf("LCA(tree, %d, %d) = %d\n", lcaTest[i][0], lcaTest[i][1], lowestCommonAncestor(root, p, q);
-  }
-  */
-
   treeDisplay(root,0,0,&initDisplayDepth,treeDepth);
+  printf("%d\n", *(getNode(root,5)->val));
+
+  int testCnt = 3;
+  int i = 0;
+  int lcaTest[3][2] = {{2,8},{0,5},{2,5}};
+  for(i = 0; i < testCnt; i++){
+    TreeNode* p = getNode(root,lcaTest[i][0]);
+    TreeNode* q = getNode(root,lcaTest[i][1]);
+    TreeNode* lca = lowestCommonAncestor(root, p, q);
+    int lcaVal = -1;
+    if( lca != NULL){
+      lcaVal = *(lca->val);
+    }
+    printf("LCA(tree, %d, %d) = %d\n", lcaTest[i][0], lcaTest[i][1], lcaVal);
+  }
+
   treeDestroy(root);
 }
 
-//235
-//V2: root descendent traversal with interval check O(log(n))
+//leet 235
 TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q){
   if( root == NULL | p == NULL || q == NULL){
     printf("LCA NULL\n");
@@ -44,26 +48,29 @@ TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q){
 
   TreeNode* biggest = q;
   TreeNode* smallest = p;
-  if( p->val > q->val ){
+  if( *(p->val) > *(q->val) ){
     biggest = p;
     smallest = q;
   }
-
+  int biggestVal = *(biggest->val);
+  int smallestVal = *(smallest->val);
+  int rootVal = *(root->val);
   printf("LCA(%d, %d, %d)\n", *(root->val), *(smallest->val),*(biggest->val));
 
-  if(root->val > smallest->val &&root->val < biggest->val ){
+
+  if(rootVal > smallestVal && rootVal < biggestVal ){
     return root;
-  }else if( root->val == smallest->val || root->val == biggest->val){
+  }else if( rootVal == smallestVal || rootVal == biggestVal){
     return root;
-  }else if(root->val > biggest->val){
+  }else if(rootVal > biggestVal){
     if(root->left != NULL){
-      lowestCommonAncestor(root->left, smallest, biggest);
+      return lowestCommonAncestor(root->left, smallest, biggest);
     }else{
       return NULL;
     }
-  }else if(root->val < smallest->val){
+  }else if(rootVal < smallestVal){
     if(root->right != NULL){
-      lowestCommonAncestor(root->right, smallest, biggest);
+      return lowestCommonAncestor(root->right, smallest, biggest);
     }else{
       return NULL;
     }
