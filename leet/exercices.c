@@ -1,5 +1,6 @@
 
 #include <stdio.h>
+#include <stdbool.h>
 #include "tree.h"
 #include "exercices.h"
 
@@ -7,12 +8,20 @@
    gcc tree.c exercices.c -lm -o leet && ./leet
    https://leetcode.com/problemset/algorithms/
  */
+#define ARR_SIZE 7
+
 void main(){
-  int arr[6]  = {7, 1, 5, 3, 6, 4};
-  //int arr[6]  = {7, 6, 4, 3, 1, 0};
-  printf("%d\n", maxProfit(arr, 6));
+
+  int arr[ARR_SIZE]  = {-2, 0, 1, 4, 65536, 4095, 4096};
+  int i = 0;
+  for(i = 0; i < ARR_SIZE; i++){
+    printf("Is (%d) pow 4: %d\n",arr[i], isPowerOfFour(arr[i]));
+  }
 }
 
+bool isPowerOfFour(int num) {
+  return (num > 0) && ((num & (num-1)) == 0) && ((num & 0x55555555) != 0);
+}
 
 //121 - either max delta or maxminimum wins O (N)
 int maxProfit(int* prices, int pricesSize) {
