@@ -6,6 +6,26 @@
 TreeNode* __treeBuildLayer(TreeNode* existingMe, int targetDepth, int myDepth, int* arr , int arrSize, int myLevelId);
 
 
+void BSTreeAdd(TreeNode* root, TreeNode* node){
+  if(root == NULL || node == NULL) return;
+
+  if(*(root->val) <= *(node->val)) {
+    if(root->left != NULL){
+      BSTreeAdd(root->left, node);
+    }else{
+      root->left = node;
+      printf("%d",*(node->val));
+    }
+  } else {
+    if(root->right != NULL){
+      BSTreeAdd(root->left, node);
+    }else{
+      root->right = node;
+      printf("%d",*(node->val));
+    }
+  }
+}
+
 TreeNode* getNode(TreeNode* root, int nodeVal){
 
   TreeNode* candidate = root;
@@ -50,9 +70,7 @@ TreeNode*  __treeBuildLayer(TreeNode* existingMe, int targetDepth, int myDepth, 
 
     TreeNode* newMe = NULL;
     if(arr[idx] != -1){
-      newMe = malloc(sizeof(TreeNode));
-      newMe->val = malloc(sizeof(int));
-      *(newMe->val) = arr[idx];
+      newMe = treeNodeBuild(arr[idx]);
       printf("%d, ", arr[idx]);
     }else{
       printf("NULL, ");
@@ -68,8 +86,12 @@ TreeNode*  __treeBuildLayer(TreeNode* existingMe, int targetDepth, int myDepth, 
   }
 }
 
-
-
+TreeNode*  treeNodeBuild(int val){
+  TreeNode* newMe = malloc(sizeof(TreeNode));
+  newMe->val = malloc(sizeof(int));
+  *(newMe->val) = val;
+  return newMe;
+}
 
 //initialize tree with heap style array
 TreeNode*  treeBuildHeapStyleinput(int* arr, int idx, int arrSize){
@@ -82,6 +104,12 @@ TreeNode*  treeBuildHeapStyleinput(int* arr, int idx, int arrSize){
   return root;
 }
 
+void treePrint(TreeNode *root){
+  int treeHeight_ = treeHeight(root);
+  printf("Tree height: %d\n", treeHeight_);
+  int initDisplayDepth = 0;
+  treeDisplay(root, 0, 0, &initDisplayDepth, treeHeight_);
+}
 void treeDisplay(TreeNode* root, int myDepth, int myId, int* displayDepth, int treeDepth){
   if(root == NULL  || *displayDepth < myDepth) return;
 
@@ -128,6 +156,10 @@ void  treeDestroy(TreeNode* root){
   }
   treeDestroy(root->left);
   treeDestroy(root->right);
-  free(root->val);
-  free(root);
+  treeNodeDestroy(root);
+}
+
+void treeNodeDestroy(TreeNode* node){
+  free(node->val);
+  free(node);
 }

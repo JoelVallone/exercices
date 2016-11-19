@@ -1,7 +1,3 @@
-#include <stdio.h>
-#include <stdbool.h>
-#include "tree.h"
-//#include "linkedlist.h"
 #include "exercices.h"
 
 
@@ -12,19 +8,59 @@
 #define ARR_SIZE 7
 
 void main(){
-  /*  int arr[] = {0,1,2,3,4,5,6};
-  LinkedList* head = linkedListBuild(arr, ARR_SIZE);
-  linkedlistPrint(head);
-  head = linkedlistRevert(head);
-  linkedlistPrint(head);
-  linkedListDestroy(head);*/
+  int arr[] = {0,1,2,3,4,5,6};
+  ListNode* head = linkedlistBuild(arr, ARR_SIZE);
+  TreeNode* root = sortedListToBST(head);
 }
 
 
-struct TreeNode* sortedListToBST(struct ListNode* head) {
+TreeNode* sortedListToBST(ListNode* head) {
+  printf("Sorted List: \n");
+  linkedlistPrint(head);
+
   //Find middle with two runner
+  ListNode* middle = linkedlistCutMiddle(head);
+  printf("\nSplit Lists: \n");
+  linkedlistPrint(head);
+  linkedlistPrint(middle);
+
   //Revert linking begin to middle
+  head = linkedlistRevert(head);
+  printf("\nLeft List: \n");
+  linkedlistPrint(head);
+  printf("Right List: \n");
+  linkedlistPrint(middle);
+
   //Middle to end is Lr, Middle to beign is Ll :alternatively add Lr & Ll elements to BST tree
+  int i = 0;
+  TreeNode* root = treeNodeBuild(middle->val);
+  middle = middle->next;
+  TreeNode* treeNode = NULL;
+  ListNode* listNode = NULL;
+  
+  int val = 0;
+  while(middle != NULL || head != NULL) {
+    if((val & 0x1) == 0) {
+      if(head !=  NULL) {
+	listNode = head;
+	head = head->next;
+      }
+    } else {
+      if (middle != NULL) {
+	listNode = middle;
+	middle = middle->next;      
+      }
+    }
+    if (listNode != NULL) {
+      treeNode = treeNodeBuild(listNode->val);
+      //printf("%d ;",*(treeNode->val));
+      BSTreeAdd(root, treeNode);
+    }
+    listNode = NULL;
+    val++;
+  }
+  printf("\nBST: ");
+  treePrint(root);
 }
 
 
