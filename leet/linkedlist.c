@@ -30,11 +30,11 @@ void linkedlistDestroy(ListNode* head) {
     next = current->next;
     free(current);    
     current = next;
-  }while(next != null);
+  }while(next != NULL);
 }
 
 ListNode* linkedlistRevert(ListNode* head) {
-  if(head == NULL || head.next == NULL) return;
+  if(head == NULL || head->next == NULL) return;
 
   LinkedList* queue = head;
   LinkedList* futureNext = head;
@@ -61,7 +61,7 @@ ListNode* linkedlistRevert(ListNode* head) {
 void linkedlistPrint(ListNode *head) {
   LinkedList* current = head;
   while(current != NULL){
-    printf("%d,"current->val);
+    printf("%d,", current->val);
     current = current->next;
   }
     printf("\n")

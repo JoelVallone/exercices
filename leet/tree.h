@@ -13,5 +13,4 @@ void treeDisplay(TreeNode* root, int myDepth, int myId, int* displayDepth, int t
 int treeHeight(TreeNode* root);
 int nodeDepth(TreeNode* root, TreeNode* node);
 TreeNode* getNode(TreeNode* root,int nodeVal);
-
 #endif

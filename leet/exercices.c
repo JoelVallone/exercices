@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include "tree.h"
-#include "linkedlist.h"
+//#include "linkedlist.h"
 #include "exercices.h"
 
 
@@ -12,12 +12,12 @@
 #define ARR_SIZE 7
 
 void main(){
-  int [] arr = {0,1,2,3,4,5,6};
+  /*  int arr[] = {0,1,2,3,4,5,6};
   LinkedList* head = linkedListBuild(arr, ARR_SIZE);
   linkedlistPrint(head);
   head = linkedlistRevert(head);
   linkedlistPrint(head);
-  linkedListDestroy(head);
+  linkedListDestroy(head);*/
 }
 
 
